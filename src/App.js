@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 // jsx
 const App = () => {
@@ -9,33 +10,57 @@ const App = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
+  const getData = () => {
+    console.log('getData');
+    axios
+      .get(`https://jsonplaceholder.typicode.com/posts`)
+      .then((response) => {
+        console.log('DATA: ', response.data);
+        setPosts(response.data);
+      })
+      .catch((err) => {
+        console.log('ERR: ', err);
+      });
+  };
+
+  useEffect(() => {
+    console.log('I am ready now');
+    getData();
+  }, []);
+
+  const addPost = () => {
+    let a = { userId: usresId, id: id, title: title, body: body }
+    //setPosts(posts.push(a))
+  }
+
   return (
     <>
       <h1>Blog App</h1>
+      <p>id :{id}</p>
+      <input type="text" placeholder="id" onChange={(e) => {
+        setId(e.target.value);
+      }} />
+      <p> user id :{usresId}</p>
+      <input type="text" placeholder="UserID" onChange={(e) => {
+        setUsresId(e.target.value);
+      }} />
+      <p> title: {title}</p>
+      <input type="text" placeholder="title" onChange={(e) => {
+        setTitle(e.target.value);
+      }} />
+      <p>body :{body}</p>
+      <input type="text" placeholder="Body" onChange={(e) => {
+        setBody(e.target.value);
+      }} />
+
+      <button onClick={addPost}>click</button>
+
       {posts && posts.map((post, i) =>
         <div key={i}>
-          <p>{post.id}</p>
-          <p>{post.title}</p>
-          <p>{post.body} </p>
-          <input type="text" placeholder="id" onChange={(e) => {
-            setId(e.target.value);
-          }}/> 
-
-          <input type="text" placeholder="UserID" onChange={(e) => {
-            setUsresId(e.target.value);
-          }}/>
-
-          <input type="text" placeholder="title" onChange={(e) => {
-            setTitle(e.target.value);
-          }}/>
-
-          <input type="text" placeholder="Body" onChange={(e) => {
-            setBody(e.target.value);
-          }}/>
-
-          <button>click</button>
+          <p>Title:{post.title}</p>
+          <p>-----------</p>
+          <p>Body: {post.body} </p>
         </div>)}
-
     </>
   )
 };
