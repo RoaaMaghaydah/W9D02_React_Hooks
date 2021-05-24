@@ -10,7 +10,7 @@ const App = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
-  const getData = () => {
+  /*const getData = () => {
     console.log('getData');
     axios
       .get(`https://jsonplaceholder.typicode.com/posts`)
@@ -26,16 +26,22 @@ const App = () => {
   useEffect(() => {
     console.log('I am ready now');
     getData();
-  }, []);
+  }, []);*/
 
   const addPost = () => {
-    let a = { userId: usresId, id: id, title: title, body: body }
-    //setPosts(posts.push(a))
+    setPosts([...posts, { userId: usresId, id: id, title: title, body: body }])
+    console.log(posts);
   }
 
   return (
     <>
       <h1>Blog App</h1>
+      {posts && posts.map((post, i) =>
+        <div key={i}>
+          <p>Title:{post.title}</p>
+          <p>Body: {post.body} </p>
+          <p>-------------------------------------</p>
+        </div>)}
       <p>id :{id}</p>
       <input type="text" placeholder="id" onChange={(e) => {
         setId(e.target.value);
@@ -55,12 +61,7 @@ const App = () => {
 
       <button onClick={addPost}>click</button>
 
-      {posts && posts.map((post, i) =>
-        <div key={i}>
-          <p>Title:{post.title}</p>
-          <p>-----------</p>
-          <p>Body: {post.body} </p>
-        </div>)}
+
     </>
   )
 };
