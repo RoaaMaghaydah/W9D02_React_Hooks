@@ -10,7 +10,7 @@ const App = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
-  /*const getData = () => {
+  const getData = () => {
     console.log('getData');
     axios
       .get(`https://jsonplaceholder.typicode.com/posts`)
@@ -26,7 +26,7 @@ const App = () => {
   useEffect(() => {
     console.log('I am ready now');
     getData();
-  }, []);*/
+  }, []);
 
   const addPost = () => {
     setPosts([...posts, { userId: usresId, id: id, title: title, body: body }])
